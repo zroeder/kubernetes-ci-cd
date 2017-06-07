@@ -17,6 +17,7 @@ docker push 127.0.0.1:30400/kr8sswordz:$TAG
 
 #Stop the registry proxy
 docker stop socat-registry
+MINIKUBEIP=`minikube ip`
 
 # Create the deployment and service for the front end aka kr8sswordz
-sed 's#127.0.0.1:30400/kr8sswordz:latest#127.0.0.1:30400/kr8sswordz:'$TAG'#' applications/kr8sswordz-pages/k8s/deployment.yaml | kubectl apply -f -
+sed 's#127.0.0.1:30400/kr8sswordz:latest#127.0.0.1:30400/kr8sswordz:'$TAG'#' applications/kr8sswordz-pages/k8s/deployment-new.yaml | kubectl apply -f -

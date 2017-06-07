@@ -4,6 +4,19 @@ parts:
     intro: This part will have us setup the various applications that will present the crossword puzzle.  We will run a sample etcd cluster as a cache, a pages application containing the front-end, a crossword server using mongodb, and a monitoring and scaling server application. 
     steps:
 
+      - cap: replace minikubeip
+        com: ./ingress.sh
+
+
+      - cap: Set up the cluster registry by applying a .yml manifest file.
+        com: kubectl apply -f manifests/registry.yml
+
+      - cap: Wait for the registry to finish deploying. Note that this may take several minutes.
+        com: kubectl rollout status deployments/registry
+
+      - cap: Store minikube ip inside a configmap
+        com: kubectl create configmap minikubeip --from-literal=minikubeip=`minikube ip` || true
+
       - cap: Start the etcd operator and service on the cluster. You may notice errors showing up as it is waiting to start up the cluster. This is normal until it starts.
         com: scripts/etcd.sh
 
@@ -29,10 +42,10 @@ parts:
         com: docker stop socat-registry
       
       - cap: Open the registry UI and verify that the monitor-scale image is in our local registry.
-        com: minikube service registry-ui
+        com: minikube service registry-ui      
 
       - cap: Create the monitor-scale deployment and service. 
-        com: sed 's#127.0.0.1:30400/monitor-scale:latest#127.0.0.1:30400/monitor-scale:'`git rev-parse --short HEAD`'#' applications/monitor-scale/k8s/deployment.yaml | kubectl apply -f -
+        com: sed 's#127.0.0.1:30400/monitor-scale:latest#127.0.0.1:30400/monitor-scale:'`git rev-parse --short HEAD`'#' applications/monitor-scale/k8s/deployment-new.yaml | kubectl apply -f -
       
       - cap: Wait for the monitor-scale deployment to finish.
         com: kubectl rollout status deployment/monitor-scale

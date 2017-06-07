@@ -19,4 +19,4 @@ docker push 127.0.0.1:30400/monitor-scale:$TAG
 docker stop socat-registry
 
 # Create the deployment and service for the monitor-scale node server
-sed 's#127.0.0.1:30400/monitor-scale:latest#127.0.0.1:30400/monitor-scale:'$TAG'#' applications/monitor-scale/k8s/deployment.yaml | kubectl apply -f -
+sed 's#127.0.0.1:30400/monitor-scale:latest#127.0.0.1:30400/monitor-scale:'$TAG'#' applications/monitor-scale/k8s/deployment-new.yaml | kubectl apply -f -

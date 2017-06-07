@@ -17,6 +17,8 @@ docker push 127.0.0.1:30400/puzzle:$TAG
 
 #Stop the registry proxy
 docker stop socat-registry
+MINIKUBEIP=`minikube ip`
+sed -i .bak "s#_MINIKUBEIP_#$MINIKUBEIP#" applications/puzzle/k8s/deployment.yam
 
 # Create the deployment and service for the puzzle server aka puzzle
-sed 's#127.0.0.1:30400/puzzle:latest#127.0.0.1:30400/puzzle:'$TAG'#' applications/puzzle/k8s/deployment.yaml | kubectl apply -f -
+sed 's#127.0.0.1:30400/puzzle:latest#127.0.0.1:30400/puzzle:'$TAG'#' applications/puzzle/k8s/deployment-new.yaml | kubectl apply -f -

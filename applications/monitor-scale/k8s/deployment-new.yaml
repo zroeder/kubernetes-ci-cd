@@ -61,7 +61,7 @@ spec:
     serviceName: monitor-scale
     servicePort: 3001
   rules:
-  - host: monitor-scale.{{ MINIKUBEIP }}.xip.io
+  - host: monitor-scale.192.168.64.8.xip.io
     http:
       paths:
       - path: /

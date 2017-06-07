@@ -33,6 +33,12 @@ spec:
       containers:
       - name: lifecycle-demo-container
         image: 127.0.0.1:30400/set:latest
+        env:
+          - name: MINIKUBEIP
+            valueFrom:
+              configMapKeyRef:
+                name: minikubeip
+                key: minikubeip
 
         lifecycle:
           postStart:

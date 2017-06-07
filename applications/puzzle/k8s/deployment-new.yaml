@@ -97,7 +97,7 @@ spec:
     serviceName: puzzle
     servicePort: 3000
   rules:
-  - host: puzzle.{{ MINIKUBEIP }}.xip.io
+  - host: puzzle.192.168.64.8.xip.io
     http:
       paths:
       - path: /

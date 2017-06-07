@@ -36,3 +36,9 @@ spec:
         ports:
         - containerPort: 3000
           name: kubescale
+        env:
+          - name: MINIKUBEIP
+            valueFrom:
+              configMapKeyRef:
+                name: minikubeip
+                key: minikubeip
