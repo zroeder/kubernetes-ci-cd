@@ -7,7 +7,6 @@ parts:
       - cap: replace minikubeip
         com: ./ingress.sh
 
-
       - cap: Set up the cluster registry by applying a .yml manifest file.
         com: kubectl apply -f manifests/registry.yml
 
